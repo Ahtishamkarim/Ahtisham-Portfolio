@@ -7,7 +7,6 @@ type Theme = "light" | "dark";
 const STORAGE_KEY = "portfolio-theme";
 
 function getSystemTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
   return window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
@@ -20,16 +19,22 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "dark";
-    const savedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    return savedTheme ?? getSystemTheme();
-  });
+  const [theme, setTheme] = useState<Theme>("dark");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY) as Theme | null;
+    const resolved = saved ?? getSystemTheme();
+    setTheme(resolved);
+    applyTheme(resolved);
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     applyTheme(theme);
     localStorage.setItem(STORAGE_KEY, theme);
-  }, [theme]);
+  }, [theme, mounted]);
 
   const isLight = theme === "light";
 
