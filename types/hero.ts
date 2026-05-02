@@ -4,5 +4,7 @@ export type HeroData = {
   titleRight: string;
   description: string;
   image: string;
+  backImage: string;
+  backImageAlt: string;
   imageAlt: string;
 };

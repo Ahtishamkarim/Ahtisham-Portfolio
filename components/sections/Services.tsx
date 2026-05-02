@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { servicesSectionData } from "@/data/services";
 
 export default function Services() {
-  const [openServiceId, setOpenServiceId] = useState<number>(3);
+  const [openServiceId, setOpenServiceId] = useState<number>(0);
 
   const toggleService = (serviceId: number) => {
     setOpenServiceId((current) => (current === serviceId ? 0 : serviceId));
@@ -29,12 +29,15 @@ export default function Services() {
                 <button
                   type="button"
                   onClick={() => toggleService(service.id)}
-                  className="flex w-full items-center justify-between text-left cursor-pointer"
+                  className="flex w-full items-center justify-between gap-4 text-left text-white cursor-pointer"
                 >
                   <h4>
                     {service.id}. {service.title}
                   </h4>
-                  <ChevronDown className="w-6 h-6" />
+                  <ChevronDown
+                    className="h-6 w-6 shrink-0"
+                    aria-hidden
+                  />
                 </button>
 
                 {openServiceId === service.id && (
@@ -55,7 +58,7 @@ export default function Services() {
           </ul>
         </div>
 
-        <div className="relative min-h-[520px]">
+        {/* <div className="relative min-h-[520px]">
           <div className="absolute right-2 top-3 h-[460px] w-[320px] rotate-[10deg] overflow-hidden rounded-[20px] md:right-8 md:w-[360px]">
             <Image
               src={servicesSectionData.primaryImage}
@@ -65,7 +68,7 @@ export default function Services() {
               sizes="(max-width: 768px) 60vw, 360px"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
