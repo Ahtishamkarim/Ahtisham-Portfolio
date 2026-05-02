@@ -55,7 +55,7 @@ export default function About() {
           </PrimaryButton>
         </div>
 
-        <div className="flex justify-center md:justify-end">
+        {/* <div className="flex justify-center md:justify-end">
           <div className="relative h-[560px] w-[380px] rotate-[6deg] overflow-hidden rounded-[26px]">
             <Image
               src={aboutSectionData.image}
@@ -65,7 +65,7 @@ export default function About() {
               sizes="(max-width: 768px) 80vw, 380px"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
