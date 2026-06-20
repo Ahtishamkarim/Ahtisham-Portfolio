@@ -23,6 +23,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), "Inter Placeholder", sans-serif;
   margin: 0;
+  overflow-x: clip;
+  width: 100%;
+}
+
+html {
+  overflow-x: clip;
 }
 
 .font-antonio {
@@ -38,6 +44,9 @@ h2{
 }
 h4 {
   @apply text-[32px] text-white leading-[42px];
+}
+h5 {
+  @apply text-[26px] text-white leading-[34px];
 }
 
 p{

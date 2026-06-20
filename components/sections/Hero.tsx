@@ -19,7 +19,6 @@ export default function Hero() {
             </div>
             <div className="flex justify-center my-7">
                 <ThemeToggle />
-
             </div>
         </section>
     );
