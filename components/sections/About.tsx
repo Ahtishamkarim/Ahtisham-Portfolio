@@ -5,7 +5,7 @@ import { PrimaryButton } from "@/components/ui/primary-button";
 
 export default function About() {
   return (
-    <section className="w-full bg-[#1a1a1a] py-16 sm:py-20">
+    <section id="about-section" className="relative w-full bg-[#1a1a1a] py-16 sm:py-20">
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 md:grid-cols-2 md:items-center md:px-8">
         <div>
           <h2>
