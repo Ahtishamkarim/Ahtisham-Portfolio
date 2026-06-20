@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type HeroImageBoxProps = {
   src: string;
@@ -9,6 +9,9 @@ type HeroImageBoxProps = {
   backSrc: string;
   backAlt?: string;
   className?: string;
+  stopAtId?: string;
+  stopAnchor?: "start" | "center";
+  stopOffset?: number;
 };
 
 export function HeroImageBox({
@@ -17,21 +20,53 @@ export function HeroImageBox({
   backSrc,
   backAlt = "Back image",
   className,
+  stopAtId = "about-section",
+  stopAnchor = "center",
+  stopOffset = 0,
 }: HeroImageBoxProps) {
-  const [styles, setStyles] = useState({
-    rotation: 0,
-    x: 0,
-    y: 0,
-    tilt: 0,
-  });
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let frame: number;
+    const wrapper = wrapperRef.current;
+    const box = boxRef.current;
+    if (!wrapper || !box) return;
+
+    let frame = 0;
+    let endScroll = window.innerHeight * 2;
+
+    const measureEndScroll = () => {
+      const stopEl = stopAtId ? document.getElementById(stopAtId) : null;
+      if (stopEl) {
+        const vh = window.innerHeight;
+        const sectionTop =
+          stopEl.getBoundingClientRect().top + window.scrollY;
+        const sectionHeight = stopEl.offsetHeight;
+
+        if (stopAnchor === "center") {
+          endScroll = sectionTop + sectionHeight / 2 - vh / 2;
+        } else {
+          endScroll = sectionTop;
+        }
+
+        endScroll += stopOffset;
+        endScroll = Math.max(endScroll, vh);
+      }
+    };
 
     const update = () => {
-      const vh = window.innerHeight;
       const scrollY = window.scrollY;
-      const progress = scrollY / vh;
+      const vh = window.innerHeight;
+
+      if (scrollY > endScroll + vh * 1.5) {
+        wrapper.style.visibility = "hidden";
+        return;
+      }
+
+      wrapper.style.visibility = "visible";
+
+      const journeyProgress = Math.min(Math.max(scrollY / endScroll, 0), 1);
+      const progress = journeyProgress * 2;
 
       let rotation = 0;
 
@@ -43,24 +78,27 @@ export function HeroImageBox({
         rotation = 360;
       }
 
-      const moveProgress = Math.min(progress, 1);
-
+      const moveProgress = Math.min(scrollY / vh, 1);
       const x = moveProgress * 24;
       const y = moveProgress * 6;
 
-      // ✅ Tilt logic (this is the main change)
       let tilt = 0;
 
       if (progress <= 1) {
-        tilt = progress * -6; // left tilt
+        tilt = progress * -6;
       } else if (progress <= 2) {
         const p = progress - 1;
-        tilt = -6 + p * 12; // -6 → +6
+        tilt = -6 + p * 12;
       } else {
-        tilt = 6; // right tilt locked
+        tilt = 6;
       }
 
-      setStyles({ rotation, x, y, tilt });
+      const pinOffsetY = scrollY > endScroll ? -(scrollY - endScroll) : 0;
+
+      wrapper.style.transform =
+        pinOffsetY !== 0 ? `translate3d(0, ${pinOffsetY}px, 0)` : "";
+
+      box.style.transform = `translate3d(${x}vw, ${y}vh, 0) rotateY(${rotation}deg) rotateZ(${tilt}deg)`;
     };
 
     const onScroll = () => {
@@ -68,35 +106,36 @@ export function HeroImageBox({
       frame = requestAnimationFrame(update);
     };
 
+    const onResize = () => {
+      measureEndScroll();
+      update();
+    };
+
+    measureEndScroll();
     update();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
 
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [stopAtId, stopAnchor, stopOffset]);
 
   return (
     <div
-      className={`pointer-events-none fixed inset-0 z-[30] flex items-center justify-center ${
+      ref={wrapperRef}
+      className={`pointer-events-none fixed inset-0 z-[30] flex items-center justify-center overflow-hidden ${
         className ?? ""
       }`}
-      style={{ perspective: "1200px" }}
+      style={{ perspective: "1200px", willChange: "transform" }}
     >
       <div
+        ref={boxRef}
         className="relative h-[476px] w-[340px] rounded-2xl"
-        style={{
-          transformStyle: "preserve-3d",
-          transform: `
-            translate3d(${styles.x}vw, ${styles.y}vh, 0)
-            rotateY(${styles.rotation}deg)
-            rotateZ(${styles.tilt}deg)
-          `,
-          transition: "transform 0.08s linear",
-        }}
+        style={{ transformStyle: "preserve-3d", willChange: "transform" }}
       >
-        {/* Front */}
         <div
           className="absolute inset-0 overflow-hidden rounded-2xl"
           style={{ backfaceVisibility: "hidden" }}
@@ -111,7 +150,6 @@ export function HeroImageBox({
           />
         </div>
 
-        {/* Back */}
         <div
           className="absolute inset-0 overflow-hidden rounded-2xl"
           style={{
