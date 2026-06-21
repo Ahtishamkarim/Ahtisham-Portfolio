@@ -9,7 +9,10 @@ export type AboutContact = {
   href: string;
 };
 
+export type AboutSocialIcon = "linkedin" | "github" | "twitter" | "instagram";
+
 export type AboutSocial = {
+  icon: AboutSocialIcon;
   label: string;
   href: string;
 };

@@ -1,3 +1,6 @@
+"use client";
+
+import { CounterNumber } from "@/components/ui/counter-number";
 import type { TestimonialHighlight } from "@/types/testimonials";
 
 export type TestimonialHighlightCardProps = Omit<TestimonialHighlight, "id">;
@@ -17,9 +20,11 @@ export function TestimonialHighlightCard({
         {topText}
       </h6>
       <div>
-        <h6 className="mt-6 font-antonio text-[60px] font-bold leading-none !text-black">
-          {value}
-        </h6>
+        <CounterNumber
+          value={value}
+          as="h6"
+          className="mt-6 font-antonio text-[60px] font-bold leading-none !text-black"
+        />
 
         <h6 className="mt-2 font-sans text-[14px] font-light !text-[#2f3139]">
           {label}

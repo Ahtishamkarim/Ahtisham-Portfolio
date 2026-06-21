@@ -1,8 +1,6 @@
-export type FooterSocial = {
-  label: string;
-  href: string;
-};
+import type { AboutSocial } from "./about";
 
+export type FooterSocial = AboutSocial;
 export type FooterContact = {
   label: string;
   value: string;

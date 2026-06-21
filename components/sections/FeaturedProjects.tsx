@@ -43,9 +43,9 @@ function FeaturedProjectsStatic({ className = "" }: { className?: string }) {
 
   return (
     <section
-      className={`relative w-full bg-[#141414] py-16 font-antonio sm:py-20 ${className}`}
+      className={`relative w-full  py-16 font-antonio sm:py-20 ${className}`}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(204,255,113,0.06),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0" />
       <div className="relative mx-auto w-full max-w-7xl px-4 md:px-8">
         <FeaturedProjectsHeader />
         <ul className="mt-4 flex flex-col items-center gap-6 md:flex-row md:flex-wrap md:justify-center lg:gap-8">
@@ -66,6 +66,8 @@ function FeaturedProjectsStatic({ className = "" }: { className?: string }) {
     </section>
   );
 }
+
+const FEATURED_EMPTY_HOLD = 0.5;
 
 function killFeaturedScrollTriggers(section: HTMLElement) {
   ScrollTrigger.getAll().forEach((trigger) => {
@@ -108,17 +110,17 @@ function PinnedFeaturedProjects() {
       syncSlideHeights();
 
       ctx = gsap.context(() => {
-        const stepCount = pairs.length;
+        const scrollSteps = pairs.length + 0.5;
 
         gsap.to(track, {
-          y: () => -pin.offsetHeight * stepCount,
+          y: () => -pin.offsetHeight * scrollSteps,
           ease: "none",
           force3D: true,
           scrollTrigger: {
             trigger: section,
             start: "top top",
             end: () =>
-              `+=${pin.offsetHeight * stepCount + window.innerHeight * 0.25}`,
+              `+=${pin.offsetHeight * scrollSteps + window.innerHeight * FEATURED_EMPTY_HOLD}`,
             pin,
             pinReparent: false,
             scrub: true,
@@ -150,13 +152,13 @@ function PinnedFeaturedProjects() {
     <section
       ref={sectionRef}
       id="featured-projects"
-      className="relative w-full max-w-full bg-[#141414] font-antonio"
+      className="relative w-full max-w-full font-antonio"
     >
       <div
         ref={pinRef}
         className="relative h-svh w-full max-w-full overflow-hidden"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(204,255,113,0.06),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0" />
 
         <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-4 md:px-8">
           <FeaturedProjectsHeader centered />
@@ -199,6 +201,8 @@ function PinnedFeaturedProjects() {
                 </ul>
               </div>
             ))}
+
+            <div data-pair-slide aria-hidden="true" />
           </div>
         </div>
       </div>

@@ -30,7 +30,7 @@ export function TestimonialCard({
       </span>
 
       <blockquote className="flex-1">
-        <p className="font-sans text-[17px] leading-relaxed text-white/85 md:text-[18px]">
+        <p className="!text-sm !font-light !leading-[21px]">
           {quote}
         </p>
       </blockquote>
@@ -45,13 +45,13 @@ export function TestimonialCard({
 
         <div className="min-w-0">
           <cite className="not-italic">
-            <p className="font-antonio text-[22px] leading-tight text-white">
+            <h6 className="font-antonio text-[22px] leading-tight text-white">
               {name}
-            </p>
+            </h6>
           </cite>
-          <p className="mt-1 font-sans text-sm text-white/65">
+          <h6 className="mt-1 font-sans text-xs text-white/65">
             {role}, {company}
-          </p>
+          </h6>
         </div>
       </footer>
     </article>

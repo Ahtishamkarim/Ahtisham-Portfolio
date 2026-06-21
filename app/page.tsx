@@ -9,11 +9,22 @@ import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import { HeroImageBox } from "@/components/ui/hero-image-box";
 import { heroData } from "@/data/hero";
+import landingPageBg from "@/assets/bg1.png";
 
 export default function Home() {
   return (
     <>
-    <main className="w-full max-w-full overflow-x-clip">
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-20 bg-cover bg-fixed bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${landingPageBg.src})` }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 bg-[#0a0a0a]/45"
+      />
+
+    <main className="relative w-full max-w-full overflow-x-clip">
       <div className="pointer-events-none sticky inset-x-0 top-0 z-50">
         <div className="pointer-events-auto">
           <Navbar />
@@ -30,7 +41,7 @@ export default function Home() {
         stopOffset={-40}
       />
 
-      <section className="relative h-screen w-full overflow-hidden -mt-20">
+      <section id="home" className="relative h-screen w-full overflow-hidden -mt-20">
         <Hero />
       </section>
 
