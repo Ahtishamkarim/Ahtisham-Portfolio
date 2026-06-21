@@ -11,9 +11,9 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative w-full bg-[#1a1a1a] py-16 font-antonio sm:py-20 md:py-24"
+      className="relative w-full py-16 font-antonio sm:py-20 md:py-24"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(204,255,113,0.04),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0" />
 
       <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-4 md:grid-cols-2 md:items-center md:gap-14 md:px-8 lg:gap-20">
         <div className="relative mx-auto w-full max-w-md md:mx-0 md:max-w-none flex justify-end items-center">

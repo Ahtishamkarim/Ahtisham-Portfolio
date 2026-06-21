@@ -1,19 +1,26 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useCursorHoverImage } from "@/components/ui/cursor-hover-image";
 import { servicesSectionData } from "@/data/services";
 
 export default function Services() {
   const [openServiceId, setOpenServiceId] = useState<number>(0);
+  const { preview, containerProps, getItemProps } = useCursorHoverImage({
+    width: 200,
+    height: 120,
+    imageTransitionDuration: 600,
+  });
 
   const toggleService = (serviceId: number) => {
     setOpenServiceId((current) => (current === serviceId ? 0 : serviceId));
   };
 
   return (
-    <section className="relative font-antonio w-full bg-[#1a1a1a] py-10 sm:py-20 md:py-25">
+    <section id="services-section" className="relative font-antonio w-full py-10 sm:py-20 md:py-25">
+      {preview}
+
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 md:grid-cols-2 md:px-8">
         <div>
           <h2>
@@ -23,38 +30,61 @@ export default function Services() {
             {servicesSectionData.description}
           </p>
 
-          <ul className="mt-10">
-            {servicesSectionData.services.map((service) => (
-              <li key={service.id} className="border-b border-white/20 py-5">
-                <button
+          <ul className="mt-10" {...containerProps}>
+            {servicesSectionData.services.map((service) => {
+              const isOpen = openServiceId === service.id;
+
+              return (
+              <li
+                key={service.id}
+                className="border-b border-white/20"
+                {...getItemProps(service)}
+              >                <button
                   type="button"
                   onClick={() => toggleService(service.id)}
-                  className="flex w-full items-center justify-between gap-4 text-left text-white cursor-pointer"
+                  aria-expanded={isOpen}
+                  className="group flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left text-white"
                 >
-                  <h4>
+                  <h4
+                    className={`transition-colors duration-300 group-hover:!text-[#ccff71] ${
+                      isOpen ? "!text-[#ccff71]" : "!text-white"
+                    }`}
+                  >
                     {service.id}. {service.title}
                   </h4>
+
                   <ChevronDown
-                    className="h-6 w-6 shrink-0"
+                    className={`h-6 w-6 shrink-0 transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
                     aria-hidden
                   />
                 </button>
 
-                {openServiceId === service.id && (
-                  <ul className="mt-4 space-y-3 pb-2">
-                    {service.points.map((point) => (
-                      <li
-                        key={point}
-                        className="flex items-center gap-3 text-[30px] text-white/9"
-                      >
-                        <span className="text-[#ccff71] !leading-[27px] mb-2.5">◉</span>
-                        <p>{point}</p>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <div
+                  className={`grid transition-all duration-300 ease-out ${
+                    isOpen
+                      ? "grid-rows-[1fr] pb-2 opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <ul className="space-y-3">
+                      {service.points.map((point) => (
+                        <li
+                          key={point}
+                          className="flex items-center gap-3 text-[30px] text-white/9"
+                        >
+                          <span className="mb-2.5 text-[#ccff71] !leading-[27px]">◉</span>
+                          <p>{point}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </li>
-            ))}
+            );
+            })}
           </ul>
         </div>
 

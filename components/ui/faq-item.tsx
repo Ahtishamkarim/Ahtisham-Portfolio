@@ -21,10 +21,10 @@ export function FaqItem({
         type="button"
         onClick={() => onToggle(id)}
         aria-expanded={isOpen}
-        className="flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left text-white"
+        className="group flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left text-white"
       >
         <h5
-          className={`pr-2 transition-colors duration-300 ${
+          className={`pr-2 transition-colors duration-300 group-hover:!text-[#ccff71] ${
             isOpen ? "!text-[#ccff71]" : "!text-white"
           }`}
         >

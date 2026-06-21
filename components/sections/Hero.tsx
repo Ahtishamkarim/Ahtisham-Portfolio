@@ -1,10 +1,9 @@
 import { heroData } from "@/data/hero";
-import { HeroImageBox } from "@/components/ui/hero-image-box";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { RippleScrollButton } from "@/components/ui/ripple-scroll-button";
 
 export default function Hero() {
     return (
-        <section className="font-antonio h-screen w-full bg-gray-800 pt-24 flex flex-col">
+        <section className="font-antonio h-screen w-full pt-24 flex flex-col">
             <div className="mx-auto grid h-full max-w-7xl grid-cols-1 content-center md:grid-cols-3">
                 <div className="flex flex-col justify-center">
                     <h4>{heroData.name}</h4>
@@ -18,7 +17,7 @@ export default function Hero() {
                 </div>
             </div>
             <div className="flex justify-center my-7">
-                <ThemeToggle />
+                <RippleScrollButton />
             </div>
         </section>
     );
