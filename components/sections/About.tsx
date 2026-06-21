@@ -2,10 +2,11 @@ import Image from "next/image";
 
 import { aboutSectionData } from "@/data/about";
 import { PrimaryButton } from "@/components/ui/primary-button";
-
+import { SocialIcon } from "@/components/ui/social-icon";
+import { CounterNumber } from "@/components/ui/counter-number";
 export default function About() {
   return (
-    <section id="about-section" className="relative w-full bg-[#1a1a1a] py-16 sm:py-20">
+    <section id="about-section" className="relative w-full py-16 sm:py-20">
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 md:grid-cols-2 md:items-center md:px-8">
         <div>
           <h2>
@@ -17,9 +18,11 @@ export default function About() {
           <div className="mt-8 grid grid-cols-3 gap-5">
             {aboutSectionData.stats.map((stat) => (
               <div key={stat.label}>
-                <h2 className="!text-[#ccff71] !leading-[60px]" >
-                  {stat.value}
-                </h2>
+                <CounterNumber
+                  value={stat.value}
+                  as="h2"
+                  className="!text-[#ccff71] !leading-[60px]"
+                />
                 <p className="!font-semibold !leading-[23px]">{stat.label}</p>
               </div>
             ))}
@@ -29,7 +32,10 @@ export default function About() {
             {aboutSectionData.contacts.map((contact) => (
               <div key={contact.label}>
                 <p className="!font-semibold !leading-[23px]">{contact.label} :</p>
-                <a href={contact.href} className="!text-[18px] !leading-[27px] !font-light !font-sans">
+                <a
+                  href={contact.href}
+                  className="block break-all !font-sans !text-[18px] !font-light !leading-[27px] !text-white transition-colors hover:!text-[#ccff71] visited:!text-white"
+                >
                   {contact.value}
                 </a>
               </div>
@@ -39,13 +45,14 @@ export default function About() {
           <div className="mt-8 flex items-center gap-3">
             {aboutSectionData.socials.map((social) => (
               <a
-                key={social.label}
+                key={social.icon}
                 href={social.href}
                 target="_blank"
                 rel="noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/35 text-sm font-semibold text-white hover:border-[#ccff71] hover:text-[#ccff71]"
+                aria-label={social.label}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/35 text-white transition-colors hover:border-[#ccff71] hover:text-[#ccff71]"
               >
-                {social.label}
+                <SocialIcon icon={social.icon} className="h-5 w-5" />
               </a>
             ))}
           </div>

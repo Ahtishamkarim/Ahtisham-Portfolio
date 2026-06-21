@@ -4,7 +4,7 @@ import { ArrowUp, ArrowUpRight } from "lucide-react";
 
 import { footerData } from "@/data/footer";
 import { AVATAR_URL } from "@/lib/constants";
-
+import { SocialIcon } from "@/components/ui/social-icon";
 export function Footer() {
   const {
     name,
@@ -74,13 +74,14 @@ export function Footer() {
             <div className="flex flex-wrap gap-3">
               {socials.map((social) => (
                 <a
-                  key={social.label}
+                  key={social.icon}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-white/15 px-4 py-2 font-sans text-sm text-white/80 transition hover:border-[#ccff71] hover:bg-[#ccff71]/10 hover:text-[#ccff71]"
+                  aria-label={social.label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-[#ccff71] hover:bg-[#ccff71]/10 hover:text-[#ccff71]"
                 >
-                  {social.label}
+                  <SocialIcon icon={social.icon} className="h-5 w-5" />
                 </a>
               ))}
             </div>

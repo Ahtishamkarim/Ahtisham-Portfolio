@@ -8,7 +8,7 @@ export const testimonialsSectionData: TestimonialsSectionData = {
     {
       id: "highlight-satisfaction",
       topText:
-        "I've worked with 50+ happy clients across startups and growing businesses, building products they trust and recommend.",
+        "I've worked with 20+ happy clients.",
       value: "98%",
       label: "Satisfaction Rate",
       backgroundColor: "#ffffff",
@@ -16,7 +16,7 @@ export const testimonialsSectionData: TestimonialsSectionData = {
     {
       id: "highlight-growth",
       topText:
-        "My work has helped clients grow their revenue by 200%, turning strong digital products into measurable business results they can scale.",
+        "My work has helped clients grow their revenue by 200%",
       value: "200%",
       label: "Growth",
       backgroundColor: "#ccff71",

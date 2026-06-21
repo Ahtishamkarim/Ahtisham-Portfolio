@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { NAV_ITEMS } from "@/data/navigation";
 import { AVATAR_URL, CONTACT_ROUTE } from "@/lib/constants";
+import { handleSmoothSectionNavClick } from "@/lib/smooth-scroll";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -29,6 +30,9 @@ export function Navbar() {
             <li key={item.href}>
               <Link
                 href={item.href}
+                onClick={(event) =>
+                  handleSmoothSectionNavClick(event, item.href, pathname)
+                }
                 className={`group relative py-3 transition duration-300 ${
                   pathname === item.href ? "text-white" : "text-white"
                 }`}
@@ -48,6 +52,9 @@ export function Navbar() {
 
         <Link
           href={CONTACT_ROUTE}
+          onClick={(event) =>
+            handleSmoothSectionNavClick(event, CONTACT_ROUTE, pathname)
+          }
           className="rounded-full bg-white px-8 py-2 font-light text-black transition-colors duration-300 hover:bg-[#ccff71]"
         >
           Contact

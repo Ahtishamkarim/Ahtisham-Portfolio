@@ -1,4 +1,8 @@
 import type { ServicesSectionData } from "@/types/services";
+import frontendImage from "@/assets/frontend.png";
+import backendImage from "@/assets/backend.jpg";
+import fullStackImage from "@/assets/full-stack.jpg";
+import maintenanceImage from "@/assets/maintainance.jpg";
 
 export const servicesSectionData: ServicesSectionData = {
   heading: "WHAT I CAN DO FOR YOU",
@@ -13,6 +17,8 @@ export const servicesSectionData: ServicesSectionData = {
         "Reusable component systems with clean state management",
         "Pixel-perfect implementation from Figma/Framer designs",
       ],
+      image: frontendImage.src,
+      imageAlt: "Frontend development workspace",
     },
     {
       id: 2,
@@ -22,6 +28,8 @@ export const servicesSectionData: ServicesSectionData = {
         "Database design, query optimization, and schema planning",
         "Server-side logic built for scalability and reliability",
       ],
+      image: backendImage.src,
+      imageAlt: "Backend development setup",
     },
     {
       id: 3,
@@ -32,6 +40,8 @@ export const servicesSectionData: ServicesSectionData = {
         "Performance tuning, SEO improvements, and accessibility",
         "CI/CD setup and production-ready deployment workflows",
       ],
+      image: fullStackImage.src,
+      imageAlt: "Full-stack project preview",
     },
     {
       id: 4,
@@ -41,6 +51,8 @@ export const servicesSectionData: ServicesSectionData = {
         "Refactoring legacy code for readability and stability",
         "Feature enhancements based on user and business needs",
       ],
+      image: maintenanceImage.src,
+      imageAlt: "Code maintenance and support",
     },
   ],
   primaryImage: "https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg",

@@ -29,6 +29,17 @@ body {
 
 html {
   overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+#home,
+#about-section,
+#services-section,
+#featured-projects,
+#testimonials,
+#faq,
+#contact {
+  scroll-margin-top: 6rem;
 }
 
 .font-antonio {
@@ -51,4 +62,20 @@ h5 {
 
 p{
   @apply text-[18px] text-white leading-[27px] font-light font-sans;
+}
+
+@keyframes scroll-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.ripple-ring {
+  animation: scroll-ripple 2.4s ease-out infinite;
 }
