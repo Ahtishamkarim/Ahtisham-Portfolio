@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-20 bg-cover bg-fixed bg-center bg-no-repeat"
+        className="pointer-events-none fixed inset-0 -z-20 bg-cover bg-fixed bg-center bg-no-repeat hidden md:block"
         style={{ backgroundImage: `url(${landingPageBg.src})` }}
       />
       <div

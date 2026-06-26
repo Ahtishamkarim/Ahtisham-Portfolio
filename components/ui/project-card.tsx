@@ -1,8 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { projectCardSizing } from "@/config/project-card";
+import { useProjectCardSizing } from "@/hooks/use-project-card-sizing";
 
 export type ProjectCardProps = {
   title: string;
@@ -15,6 +17,8 @@ export type ProjectCardProps = {
   compact?: boolean;
   /** Optional pixel offset — positive y moves the card down. */
   offset?: { x: number; y: number };
+  /** Override responsive width from config. */
+  width?: number;
 };
 
 export function ProjectCard({
@@ -26,16 +30,21 @@ export function ProjectCard({
   link,
   compact = false,
   offset,
+  width: widthOverride,
 }: ProjectCardProps) {
-  const cardWidth = projectCardSizing.width;
+  const responsiveSizing = useProjectCardSizing();
+  const isFullWidth = responsiveSizing.fullWidth ?? false;
+  const cardWidth = widthOverride ?? responsiveSizing.width;
   const translateX = offset?.x ?? 0;
   const translateY = offset?.y ?? 0;
 
   return (
     <article
-      className="group shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-[#1f1f1f] shadow-[0_24px_60px_rgba(0,0,0,0.35)] transition-colors duration-300 hover:border-[#ccff71]/40"
+      className={`group overflow-hidden rounded-2xl border border-white/10 bg-[#1f1f1f] shadow-[0_24px_60px_rgba(0,0,0,0.35)] transition-colors duration-300 hover:border-[#ccff71]/40 ${
+        isFullWidth ? "w-full min-w-0 max-w-full" : "shrink-0"
+      }`}
       style={{
-        width: cardWidth,
+        width: isFullWidth ? undefined : cardWidth,
         transform:
           translateX || translateY
             ? `translate(${translateX}px, ${translateY}px)`
@@ -58,7 +67,11 @@ export function ProjectCard({
             alt={imageAlt ?? title}
             fill
             className="object-cover group-hover:scale-[1.04] motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out"
-            sizes={`(max-width: 768px) 90vw, ${cardWidth}px`}
+            sizes={
+              isFullWidth
+                ? "100vw"
+                : `(max-width: 768px) 90vw, ${cardWidth}px`
+            }
           />
           <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent opacity-80" />
         </div>
