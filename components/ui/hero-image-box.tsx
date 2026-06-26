@@ -107,17 +107,11 @@ export function HeroImageBox({
       if (handCircle) {
         const handFadeDistance = vh * 0.65;
         const handProgress = Math.min(scrollY / handFadeDistance, 1);
-        const handOpacity = 1 - handProgress;
-        const handScale = 1 - handProgress;
+        const handOpacity = Math.max(0, 1 - handProgress);
+        const handScale = Math.max(0, 1 - handProgress);
 
-        handCircle.style.opacity = String(handOpacity);
-        handCircle.style.transform = `scale(${handScale})`;
-        handCircle.style.visibility = handOpacity <= 0 ? "hidden" : "visible";
-        // Keep wave speed feeling constant as the circle shrinks on scroll.
-        handCircle.style.setProperty(
-          "--hand-wave-duration",
-          `${Math.max(0.85, 3 * Math.max(handScale, 0.35))}s`,
-        );
+        handCircle.style.opacity = handOpacity.toFixed(3);
+        handCircle.style.transform = `translateZ(48px) scale(${handScale.toFixed(3)})`;
       }
     };
 
@@ -188,7 +182,11 @@ export function HeroImageBox({
 
         <div
           ref={handCircleRef}
-          className="absolute -bottom-12 -left-14 z-10 origin-center will-change-[opacity,transform]"
+          className="absolute -bottom-12 -left-14 z-10 origin-center"
+          style={{
+            backfaceVisibility: "visible",
+            transformStyle: "preserve-3d",
+          }}
         >
           <HeroHandCircle />
         </div>
