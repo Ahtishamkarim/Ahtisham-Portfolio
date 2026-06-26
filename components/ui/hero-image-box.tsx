@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+import { HeroHandCircle } from "@/components/ui/hero-hand-circle";
+
 type HeroImageBoxProps = {
   src: string;
   alt: string;
@@ -26,10 +28,12 @@ export function HeroImageBox({
 }: HeroImageBoxProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
+  const handCircleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const box = boxRef.current;
+    const handCircle = handCircleRef.current;
     if (!wrapper || !box) return;
 
     let frame = 0;
@@ -99,6 +103,22 @@ export function HeroImageBox({
         pinOffsetY !== 0 ? `translate3d(0, ${pinOffsetY}px, 0)` : "";
 
       box.style.transform = `translate3d(${x}vw, ${y}vh, 0) rotateY(${rotation}deg) rotateZ(${tilt}deg)`;
+
+      if (handCircle) {
+        const handFadeDistance = vh * 0.65;
+        const handProgress = Math.min(scrollY / handFadeDistance, 1);
+        const handOpacity = 1 - handProgress;
+        const handScale = 1 - handProgress;
+
+        handCircle.style.opacity = String(handOpacity);
+        handCircle.style.transform = `scale(${handScale})`;
+        handCircle.style.visibility = handOpacity <= 0 ? "hidden" : "visible";
+        // Keep wave speed feeling constant as the circle shrinks on scroll.
+        handCircle.style.setProperty(
+          "--hand-wave-duration",
+          `${Math.max(0.85, 3 * Math.max(handScale, 0.35))}s`,
+        );
+      }
     };
 
     const onScroll = () => {
@@ -164,6 +184,13 @@ export function HeroImageBox({
             className="object-cover"
             sizes="(max-width: 720px) 100vw, 33vw"
           />
+        </div>
+
+        <div
+          ref={handCircleRef}
+          className="absolute -bottom-12 -left-14 z-10 origin-center will-change-[opacity,transform]"
+        >
+          <HeroHandCircle />
         </div>
       </div>
     </div>
