@@ -1,17 +1,45 @@
+import type { TailwindBreakpoint } from "@/lib/breakpoints";
+
 /**
  * Project card sizing
  * -------------------
- * `width` — card width in pixels (increase = bigger, decrease = smaller)
- * `gap`   — space between the two cards in a scroll pair
+ * `width`     — card width in pixels (omit on `base` when using `fullWidth`)
+ * `gap`       — space between the two cards in a scroll pair
+ * `fullWidth` — stretch card to container width (used on `base`)
+ *
+ * Keys match Tailwind breakpoints (`base`, `sm`, `md`, `lg`, `xl`, `2xl`).
+ * Resolved via `getProjectCardSizing()` + `getTailwindBreakpoint()`.
  */
-export const projectCardSizing = {
-  width: 520,
-  gap: 200,
-} as const;
+export type ProjectCardSizeConfig = {
+  width?: number;
+  gap: number;
+  fullWidth?: boolean;
+};
 
-/** Width of the two-card row in the pinned featured section. */
+export const projectCardSizing: Record<TailwindBreakpoint, ProjectCardSizeConfig> = {
+  "2xl": { width: 520, gap: 200 },
+  xl: { width: 520, gap: 200 },
+  lg: { width: 420, gap: 120 },
+  md: { width: 340, gap: 30 },
+  sm: { gap: 32, fullWidth: true },
+  base: { gap: 16, fullWidth: true },
+};
+
+export const defaultProjectCardSizing = projectCardSizing["2xl"];
+
+/** @deprecated Use `getProjectCardPairWidth(getProjectCardSizing(...))` */
 export const projectCardPairWidth =
-  projectCardSizing.width * 2 + projectCardSizing.gap;
+  (projectCardSizing["2xl"].width ?? 520) * 2 + projectCardSizing["2xl"].gap;
+
+export function getProjectCardPairWidth(sizing: ProjectCardSizeConfig) {
+  return (sizing.width ?? 0) * 2 + sizing.gap;
+}
+
+export function getProjectCardSizing(
+  breakpoint: TailwindBreakpoint,
+): ProjectCardSizeConfig {
+  return { ...projectCardSizing[breakpoint] };
+}
 
 type CardOffset = { x: number; y: number };
 
@@ -59,7 +87,8 @@ const emptyOffset: CardOffset = { x: 0, y: 0 };
 
 export function getProjectCardOffset(
   pairIndex: number,
-  slot: ProjectCardSlot | 0 | 1
+  slot: ProjectCardSlot | 0 | 1,
+  scale = 1,
 ) {
   const pairConfig = projectCardPosition[pairIndex] ?? {
     pair: emptyOffset,
@@ -71,7 +100,12 @@ export function getProjectCardOffset(
   const slotOffset = pairConfig[slotKey];
 
   return {
-    x: pairConfig.pair.x + slotOffset.x,
-    y: pairConfig.pair.y + slotOffset.y,
+    x: (pairConfig.pair.x + slotOffset.x) * scale,
+    y: (pairConfig.pair.y + slotOffset.y) * scale,
   };
+}
+
+export function getProjectCardOffsetScale(sizing: ProjectCardSizeConfig) {
+  const referenceWidth = sizing.width ?? projectCardSizing.sm.width ?? 360;
+  return referenceWidth / projectCardSizing["2xl"].width!;
 }

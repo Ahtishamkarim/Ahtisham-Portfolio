@@ -22,7 +22,7 @@ export default function FAQ() {
         <div className="md:sticky md:top-28">
           <h2>{faqSectionData.heading}</h2>
 
-          <p className="mt-4 max-w-[470px] text-white/90">
+          <p className="md:mt-4 mt-1 max-w-[470px] text-white/90">
             {faqSectionData.description}
           </p>
         </div>

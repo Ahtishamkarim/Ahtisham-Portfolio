@@ -23,7 +23,7 @@ export function TestimonialHighlightCard({
         <CounterNumber
           value={value}
           as="h6"
-          className="mt-6 font-antonio text-[60px] font-bold leading-none !text-black"
+          className="mt-6 font-antonio md:text-[60px] text-[48px] font-bold leading-none !text-black"
         />
 
         <h6 className="mt-2 font-sans text-[14px] font-light !text-[#2f3139]">

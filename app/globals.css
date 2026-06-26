@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #0a0a0a;
   --foreground: #171717;
 }
 
@@ -14,7 +14,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #0a0a0a;
   }
 }
 
@@ -48,20 +48,36 @@ html {
 
 
 h1{
-  @apply text-[120px] text-white leading-[100px] font-bold;
+  @apply text-[52px] md:text-[70px] lg:text-[80px] xl:text-[114px] text-white lg:leading-[100px] md:leading-[65px] leading-[55px] font-bold;
 }
 h2{
-  @apply text-[60px] text-white !leading-[78px] font-bold;
+  @apply text-[32px] md:text-[46px] lg:text-[60px] text-white lg:!leading-[78px] md:!leading-[55px] leading-[45px] font-bold;
 }
 h4 {
-  @apply text-[32px] text-white leading-[42px];
+  @apply text-[24px] md:text-[28px] lg:text-[32px] text-white lg:leading-[42px] md:leading-[35px] leading-[30px];
 }
 h5 {
-  @apply text-[26px] text-white leading-[34px];
+  @apply md:text-[26px] text-[20px] text-white md:leading-[34px] leading-[30px];
 }
 
 p{
-  @apply text-[18px] text-white leading-[27px] font-light font-sans;
+  @apply md:text-[18px] text-[16px] text-white md:leading-[27px] leading-[23px] font-light font-sans;
+}
+
+@keyframes scroll-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.ripple-ring {
+  animation: scroll-ripple 2.4s ease-out infinite;
 }
 
 @keyframes scroll-ripple {

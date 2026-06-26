@@ -13,7 +13,7 @@ export default function About() {
             {aboutSectionData.heading}
           </h2>
 
-          <p className="mt-4 max-w-[520px] text-white/90">{aboutSectionData.description}</p>
+          <p className="md:mt-4 mt-1 max-w-[520px] text-white/90">{aboutSectionData.description}</p>
 
           <div className="mt-8 grid grid-cols-3 gap-5">
             {aboutSectionData.stats.map((stat) => (
@@ -28,7 +28,7 @@ export default function About() {
             ))}
           </div>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <div className="mt-8 grid xl:gap-5 sm:grid-cols-2 gap-1">
             {aboutSectionData.contacts.map((contact) => (
               <div key={contact.label}>
                 <p className="!font-semibold !leading-[23px]">{contact.label} :</p>
