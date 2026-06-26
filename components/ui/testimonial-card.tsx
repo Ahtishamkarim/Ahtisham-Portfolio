@@ -45,7 +45,7 @@ export function TestimonialCard({
 
         <div className="min-w-0">
           <cite className="not-italic">
-            <h6 className="font-antonio text-[22px] leading-tight text-white">
+            <h6 className="font-antonio md:text-[22px] text-[18px] leading-tight text-white">
               {name}
             </h6>
           </cite>

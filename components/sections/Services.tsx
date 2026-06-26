@@ -26,11 +26,11 @@ export default function Services() {
           <h2>
             {servicesSectionData.heading}
           </h2>
-          <p className="mt-4 max-w-[470px]">
+          <p className="md:mt-4 mt-1 max-w-[470px]">
             {servicesSectionData.description}
           </p>
 
-          <ul className="mt-10" {...containerProps}>
+          <ul className="md:mt-10 mt-7" {...containerProps}>
             {servicesSectionData.services.map((service) => {
               const isOpen = openServiceId === service.id;
 
@@ -43,7 +43,7 @@ export default function Services() {
                   type="button"
                   onClick={() => toggleService(service.id)}
                   aria-expanded={isOpen}
-                  className="group flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left text-white"
+                  className="group flex w-full cursor-pointer items-center justify-between gap-4 md:py-5 py-3 text-left text-white"
                 >
                   <h4
                     className={`transition-colors duration-300 group-hover:!text-[#ccff71] ${

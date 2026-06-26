@@ -53,7 +53,7 @@ export default function Testimonials() {
       <div className="relative mx-auto w-full max-w-7xl px-4 md:px-8">
         <div className="mx-auto">
           <h2>{heading}</h2>
-          <p className="mt-4 max-w-xl">{description}</p>
+          <p className="md:mt-4 mt-1 max-w-xl">{description}</p>
         </div>
 
         <ul className="mt-10 grid grid-cols-1 gap-6 md:mt-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">

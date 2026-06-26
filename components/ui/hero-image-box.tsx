@@ -126,7 +126,7 @@ export function HeroImageBox({
   return (
     <div
       ref={wrapperRef}
-      className={`pointer-events-none fixed inset-0 z-[30] flex items-center justify-center overflow-hidden ${
+      className={`pointer-events-none fixed inset-0 z-[30] flex items-center justify-center overflow-hidden hidden lg:flex ${
         className ?? ""
       }`}
       style={{ perspective: "1200px", willChange: "transform" }}

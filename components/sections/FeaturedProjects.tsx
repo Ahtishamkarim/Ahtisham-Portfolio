@@ -7,10 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ProjectCard } from "@/components/ui/project-card";
 import {
   getProjectCardOffset,
-  projectCardPairWidth,
-  projectCardSizing,
+  getProjectCardOffsetScale,
+  getProjectCardPairWidth,
 } from "@/config/project-card";
 import { featuredProjectsSectionData } from "@/data/featured-projects";
+import { useProjectCardSizing } from "@/hooks/use-project-card-sizing";
+import { isMdScreen, tailwindBreakpointQueries } from "@/lib/breakpoints";
 import type { Project } from "@/types/featured-projects";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -33,7 +35,7 @@ function FeaturedProjectsHeader({ centered = false }: { centered?: boolean }) {
       }
     >
       <h2 className="break-words">{featuredProjectsSectionData.heading}</h2>
-      <p className="mt-4">{featuredProjectsSectionData.description}</p>
+      <p className="md:mt-4 mt-1">{featuredProjectsSectionData.description}</p>
     </header>
   );
 }
@@ -43,14 +45,14 @@ function FeaturedProjectsStatic({ className = "" }: { className?: string }) {
 
   return (
     <section
-      className={`relative w-full  py-16 font-antonio sm:py-20 ${className}`}
+      className={`relative w-full overflow-x-clip py-16 font-antonio sm:py-20 ${className}`}
     >
       <div className="pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto w-full max-w-7xl px-4 md:px-8">
+      <div className="relative mx-auto w-full min-w-0 max-w-7xl px-4 md:px-8">
         <FeaturedProjectsHeader />
-        <ul className="mt-4 flex flex-col items-center gap-6 md:flex-row md:flex-wrap md:justify-center lg:gap-8">
+        <ul className="mt-4 flex min-w-0 flex-col items-stretch gap-6 md:flex-row md:flex-wrap md:items-center md:justify-center lg:gap-8">
           {projects.map((project) => (
-            <li key={project.id}>
+            <li key={project.id} className="min-w-0 w-full md:w-auto">
               <ProjectCard
                 title={project.title}
                 description={project.description}
@@ -81,6 +83,9 @@ function PinnedFeaturedProjects() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const cardSizing = useProjectCardSizing();
+  const pairWidth = getProjectCardPairWidth(cardSizing);
+  const offsetScale = getProjectCardOffsetScale(cardSizing);
 
   const pairs = useMemo(
     () => chunkProjects(featuredProjectsSectionData.projects, 2),
@@ -132,21 +137,26 @@ function PinnedFeaturedProjects() {
       }, section);
     };
 
+    const onResize = () => {
+      syncSlideHeights();
+      ScrollTrigger.refresh();
+    };
+
     frame = requestAnimationFrame(setup);
 
     const onRefreshInit = () => syncSlideHeights();
     ScrollTrigger.addEventListener("refreshInit", onRefreshInit);
-    window.addEventListener("resize", syncSlideHeights);
+    window.addEventListener("resize", onResize);
 
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("resize", syncSlideHeights);
+      window.removeEventListener("resize", onResize);
       ScrollTrigger.removeEventListener("refreshInit", onRefreshInit);
       ctx?.revert();
       killFeaturedScrollTriggers(section);
       gsap.set(track, { clearProps: "transform" });
     };
-  }, [pairs.length]);
+  }, [pairs.length, cardSizing.width, cardSizing.gap]);
 
   return (
     <section
@@ -180,15 +190,20 @@ function PinnedFeaturedProjects() {
                 <ul
                   className="flex shrink-0 items-stretch justify-center"
                   style={{
-                    width: projectCardPairWidth,
-                    gap: projectCardSizing.gap,
+                    width: pairWidth,
+                    gap: cardSizing.gap,
                   }}
                 >
                   {pair.map((project, cardIndex) => (
                     <li key={project.id} className="pointer-events-auto">
                       <ProjectCard
                         compact
-                        offset={getProjectCardOffset(index, cardIndex as 0 | 1)}
+                        width={cardSizing.width}
+                        offset={getProjectCardOffset(
+                          index,
+                          cardIndex as 0 | 1,
+                          offsetScale,
+                        )}
                         title={project.title}
                         description={project.description}
                         image={project.image}
@@ -215,7 +230,7 @@ function getPinnedScrollEnabled() {
 
   return (
     !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-    !window.matchMedia("(max-width: 768px)").matches
+    isMdScreen()
   );
 }
 
@@ -224,7 +239,7 @@ export default function FeaturedProjects() {
 
   useEffect(() => {
     const reducedMq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mobileMq = window.matchMedia("(max-width: 768px)");
+    const mdMq = window.matchMedia(tailwindBreakpointQueries.md);
 
     const update = () => {
       const next = getPinnedScrollEnabled();
@@ -243,11 +258,11 @@ export default function FeaturedProjects() {
     setUsePinnedScroll(getPinnedScrollEnabled());
 
     reducedMq.addEventListener("change", update);
-    mobileMq.addEventListener("change", update);
+    mdMq.addEventListener("change", update);
 
     return () => {
       reducedMq.removeEventListener("change", update);
-      mobileMq.removeEventListener("change", update);
+      mdMq.removeEventListener("change", update);
 
       const section = document.getElementById("featured-projects");
       if (section) {
