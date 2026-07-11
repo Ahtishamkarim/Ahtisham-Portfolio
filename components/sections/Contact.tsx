@@ -28,7 +28,7 @@ export default function Contact() {
               />
             </div>
 
-            <HeroHandCircle className="absolute -bottom-12 -left-14 z-10" />
+            <HeroHandCircle className="absolute -bottom-12 md:-left-14 z-10" />
           </div>
         </div>
 
