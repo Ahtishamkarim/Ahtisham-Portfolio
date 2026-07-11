@@ -6,8 +6,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { NAV_ITEMS } from "@/data/navigation";
-import { AVATAR_URL, CONTACT_ROUTE } from "@/lib/constants";
+import { CONTACT_ROUTE } from "@/lib/constants";
 import { handleSmoothSectionNavClick } from "@/lib/smooth-scroll";
+import impageicon from "@/assets/pic.jpeg";
 
 const MENU_EASE = "ease-[cubic-bezier(0.19,1,0.22,1)]";
 
@@ -72,20 +73,23 @@ export function MobileNavbar() {
         <button
           type="button"
           aria-label="Close menu"
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-40 bg-transparent"
           onClick={() => setIsOpen(false)}
         />
       ) : null}
 
+      {/* Keeps page layout height fixed so the open menu never pushes content down */}
+      <div className="mx-auto h-14 w-full max-w-xs" aria-hidden />
+
       <nav
-        className={`relative z-50 mx-auto flex w-full max-w-xs flex-col overflow-hidden rounded-[28px] bg-black/90 p-2 backdrop-blur-[5px] transition-[box-shadow] duration-300 ${MENU_EASE} ${
+        className={`fixed inset-x-3 top-5 z-50 mx-auto flex w-[calc(100%-1.5rem)] max-w-xs flex-col overflow-hidden rounded-[28px] bg-black/90 p-2 backdrop-blur-[5px] transition-shadow duration-300 ${MENU_EASE} ${
           isOpen ? "shadow-[0_24px_60px_rgba(0,0,0,0.45)]" : ""
         }`}
       >
         <div className="flex items-center justify-between gap-3">
           <div className="shrink-0 overflow-hidden rounded-full border border-white/80">
             <Image
-              src={AVATAR_URL}
+              src={impageicon}
               alt="Portfolio Creator Avatar"
               width={40}
               height={40}
@@ -95,7 +99,7 @@ export function MobileNavbar() {
           </div>
 
           <div
-            className={`flex min-w-0 flex-1 justify-center items-center gap-3 transition-all duration-300 ${MENU_EASE} ${
+            className={`flex min-w-0 flex-1 items-center justify-center gap-3 transition-all duration-300 ${MENU_EASE} ${
               isOpen
                 ? "pointer-events-none max-w-0 opacity-0"
                 : "max-w-full opacity-100"
@@ -129,8 +133,11 @@ export function MobileNavbar() {
 
         <div
           className={`grid transition-all duration-500 ${MENU_EASE} ${
-            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+            isOpen
+              ? "pointer-events-auto visible grid-rows-[1fr] opacity-100"
+              : "pointer-events-none invisible grid-rows-[0fr] opacity-0"
           }`}
+          aria-hidden={!isOpen}
         >
           <div className="overflow-hidden">
             <ul className="flex flex-col items-center gap-10 py-8">
@@ -164,7 +171,9 @@ export function MobileNavbar() {
                   : "translate-y-2 opacity-0"
               }`}
               style={{
-                transitionDelay: isOpen ? `${80 + NAV_ITEMS.length * 50}ms` : "0ms",
+                transitionDelay: isOpen
+                  ? `${80 + NAV_ITEMS.length * 50}ms`
+                  : "0ms",
               }}
             >
               <Link

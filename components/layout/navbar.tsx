@@ -3,11 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { MobileNavbar } from "@/components/layout/mobile-navbar";
 import { NAV_ITEMS } from "@/data/navigation";
 import { AVATAR_URL, CONTACT_ROUTE } from "@/lib/constants";
 import { handleSmoothSectionNavClick } from "@/lib/smooth-scroll";
+import impageicon from "@/assets/pic.jpeg";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -20,7 +20,7 @@ export function Navbar() {
         <nav className="mx-auto flex w-full max-w-lg items-center rounded-[28px] bg-black p-2">
           <div className="overflow-hidden rounded-full border border-white/80">
             <Image
-              src={AVATAR_URL}
+              src={impageicon}
               alt="Portfolio Creator Avatar"
               width={40}
               height={40}
