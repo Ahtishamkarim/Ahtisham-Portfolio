@@ -2,6 +2,11 @@ import type { FeaturedProjectsSectionData } from "@/types/featured-projects";
 import baqidigital from "@/assets/projects/baqi.png";
 import zhenghe from "@/assets/projects/zhenghe.svg";
 import strangerus from "@/assets/projects/strangerus.png";
+import citeready from "@/assets/projects/citeready.png";
+import medplum from "@/assets/projects/medplum.png";
+import homestead from "@/assets/projects/homestead.png";
+import grandrapidcarservice from "@/assets/projects/grandrapidcarservice.png";
+import myeasyjunkremoval from "@/assets/projects/myeasyjunkremoval.png";
 
 const projectImage =
   "https://framerusercontent.com/images/qrxY8NagVO40NBrdhFEGgFR3PYY.jpg";
@@ -43,53 +48,53 @@ export const featuredProjectsSectionData: FeaturedProjectsSectionData = {
     },
     {
       id: "project-4",
-      title: "Streamline SaaS",
+      title: "CiteReady",
       description:
-        "Multi-tenant SaaS dashboard with billing, onboarding, and usage-based subscription tiers.",
-      image: baqidigital.src,
-      imageAlt: "Streamline SaaS product preview",
-      tags: ["React", "GraphQL", "AWS"],
-      link: "https://baqidigital.com",
+        "AI search visibility audit that scores how engines crawl, cite, and rank a site — then ships prioritized fixes.",
+      image: citeready.src,
+      imageAlt: "CiteReady AI search visibility audit preview",
+      tags: ["Next.js", "TypeScript", "AI Search"],
+      link: "https://tryciteready.com/",
     },
     {
       id: "project-5",
-      title: "Zhenghe",
+      title: "Medplum",
       description:
-        "Property listing experience with map search, saved favorites, and agent lead capture.",
-      image: zhenghe.src,
-      imageAlt: "Zhenghe website preview",
-      tags: ["Next.js", "Mapbox", "MongoDB"],
-      link: "https://zh.com.sg",
+        "Open source developer platform for building and running modern healthcare apps on FHIR-native infrastructure.",
+      image: medplum.src,
+      imageAlt: "Medplum healthcare platform preview",
+      tags: ["React", "TypeScript", "FHIR"],
+      link: "https://www.medplum.com/",
     },
     {
       id: "project-6",
-      title: "FinTrack Pro",
+      title: "Homestead Entertainment",
       description:
-        "Personal finance app with budgeting, recurring expense tracking, and visual insights.",
-      image: strangerus.src,
-      imageAlt: "FinTrack Pro mobile and web preview",
-      tags: ["React Native", "Firebase", "Chart.js"],
-      link: "https://strangerus.com",
+        "Independent film distribution site for movies, TV, and digital content with catalog, trailers, and submissions.",
+      image: homestead.src,
+      imageAlt: "Homestead Entertainment website preview",
+      tags: ["WordPress", "PHP", "JavaScript"],
+      link: "https://homesteadentertainment.com/",
     },
     {
       id: "project-7",
-      title: "Baqi Digital",
+      title: "Grand Rapid Car Service",
       description:
-        "Learning management system with course modules, quizzes, progress tracking, and certificates.",
-      image: baqidigital.src,
-      imageAlt: "Baqi Digital platform preview",
-      tags: ["Next.js", "Supabase", "MDX"],
-      link: "https://baqidigital.com",
+        "Luxury black car and airport transportation site with online booking, fleet details, and service coverage.",
+      image: grandrapidcarservice.src,
+      imageAlt: "Grand Rapid Car Service website preview",
+      tags: ["WordPress", "PHP", "JavaScript"],
+      link: "https://grandrapidcarservice.com/",
     },
     {
       id: "project-8",
-      title: "Strangerus",
+      title: "My Easy Junk Removal",
       description:
-        "Internal tooling for deployment health, incident alerts, and service uptime monitoring.",
-      image: strangerus.src,
-      imageAlt: "Strangerus dashboard preview",
-      tags: ["TypeScript", "Docker", "Grafana"],
-      link: "https://strangerus.com",
+        "Nationwide junk removal marketplace where homeowners and businesses get instant quotes from verified local haulers.",
+      image: myeasyjunkremoval.src,
+      imageAlt: "My Easy Junk Removal website preview",
+      tags: ["Next.js", "TypeScript", "Marketplace"],
+      link: "https://myeasyjunkremoval.com/",
     },
   ],
 };

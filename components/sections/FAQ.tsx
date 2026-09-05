@@ -19,7 +19,7 @@ export default function FAQ() {
       <div className="pointer-events-none absolute inset-0" />
 
       <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-4 md:grid-cols-2 md:items-start md:gap-14 md:px-8 lg:gap-20">
-        <div className="md:sticky md:top-28">
+        <div className="md:sticky md:top-28 bg-[#0a0a0a]/30 rounded-2xl p-4 backdrop-blur-md">
           <h2>{faqSectionData.heading}</h2>
 
           <p className="md:mt-4 mt-1 max-w-[470px] text-white/90">
@@ -27,7 +27,7 @@ export default function FAQ() {
           </p>
         </div>
 
-        <ul>
+        <ul className="bg-[#0a0a0a]/30 rounded-2xl p-4 backdrop-blur-md border border-white/10">
           {faqSectionData.items.map((item) => (
             <FaqItem
               key={item.id}

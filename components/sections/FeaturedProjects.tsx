@@ -30,7 +30,7 @@ function FeaturedProjectsHeader({ centered = false }: { centered?: boolean }) {
     <header
       className={
         centered
-          ? "mx-auto w-full max-w-3xl min-w-0 px-4 text-center md:px-8"
+          ? "mx-auto w-full max-w-3xl min-w-0 px-4 text-center md:px-8 bg-[#0a0a0a]/30 rounded-2xl p-4 backdrop-blur-md"
           : "mx-auto max-w-3xl shrink-0 px-4 pb-6 pt-10 text-center md:px-8 md:pb-8 md:pt-12"
       }
     >

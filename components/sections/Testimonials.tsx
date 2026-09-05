@@ -51,7 +51,7 @@ export default function Testimonials() {
       <div className="pointer-events-none absolute inset-0 " />
       {/* bg-[radial-gradient(ellipse_at_top,rgba(204,255,113,0.05),transparent_55%)] */}
       <div className="relative mx-auto w-full max-w-7xl px-4 md:px-8">
-        <div className="mx-auto">
+        <div className="bg-[#0a0a0a]/30 rounded-2xl p-4 backdrop-blur-md max-w-[620px]">
           <h2>{heading}</h2>
           <p className="md:mt-4 mt-1 max-w-xl">{description}</p>
         </div>
