@@ -7,8 +7,8 @@ import { CounterNumber } from "@/components/ui/counter-number";
 export default function About() {
   return (
     <section id="about-section" className="relative w-full py-16 sm:py-20">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 md:grid-cols-2 md:items-center md:px-8">
-        <div>
+      <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 md:grid-cols-2 md:items-center md:px-8">
+        <div className="bg-[#0a0a0a]/30 border border-white/10 rounded-2xl p-4 backdrop-blur-md">
           <h2>
             {aboutSectionData.heading}
           </h2>
@@ -28,7 +28,7 @@ export default function About() {
             ))}
           </div>
 
-          <div className="mt-8 grid xl:gap-5 sm:grid-cols-2 gap-1">
+          <div className="mt-8 grid xl:gap-2 sm:grid-cols-2 gap-1">
             {aboutSectionData.contacts.map((contact) => (
               <div key={contact.label}>
                 <p className="!font-semibold !leading-[23px]">{contact.label} :</p>
