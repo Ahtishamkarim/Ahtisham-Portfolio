@@ -8,20 +8,16 @@ import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import { HeroImageBox } from "@/components/ui/hero-image-box";
+import { BallpitBackground } from "@/components/ui/ballpit-background";
 import { heroData } from "@/data/hero";
-import landingPageBg from "@/assets/bg1.png";
 
 export default function Home() {
   return (
     <>
+      <BallpitBackground />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-20 bg-cover bg-fixed bg-center bg-no-repeat hidden md:block"
-        style={{ backgroundImage: `url(${landingPageBg.src})` }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 bg-[#0a0a0a]/45"
+        className="pointer-events-none fixed inset-0 -z-10 bg-[#0a0a0a]/25"
       />
 
     <main className="relative w-full max-w-full overflow-x-clip">

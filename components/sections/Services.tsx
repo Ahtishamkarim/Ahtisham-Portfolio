@@ -21,8 +21,8 @@ export default function Services() {
     <section id="services-section" className="relative font-antonio w-full py-10 sm:py-20 md:py-25">
       {preview}
 
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 md:grid-cols-2 md:px-8">
-        <div>
+      <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 md:grid-cols-2 md:px-8">
+        <div className="bg-[#0a0a0a]/30 border border-white/10 rounded-2xl p-4 backdrop-blur-md">
           <h2>
             {servicesSectionData.heading}
           </h2>

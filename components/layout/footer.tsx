@@ -3,8 +3,9 @@ import Link from "next/link";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 
 import { footerData } from "@/data/footer";
-import { AVATAR_URL } from "@/lib/constants";
 import { SocialIcon } from "@/components/ui/social-icon";
+import impageicon from "@/assets/pic.jpeg";
+
 export function Footer() {
   const {
     name,
@@ -56,7 +57,7 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <div className="overflow-hidden rounded-full border border-white/20">
                 <Image
-                  src={AVATAR_URL}
+                  src={impageicon}
                   alt={name}
                   width={52}
                   height={52}

@@ -32,7 +32,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="order-1 md:order-2">
+        <div className="order-1 md:order-2 bg-[#0a0a0a]/30 rounded-2xl p-4 backdrop-blur-md border border-white/10">
           <h2>{heading}</h2>
           <p className="mt-4 max-w-lg text-white/90">{description}</p>
 
