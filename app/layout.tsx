@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Antonio, Inter } from "next/font/google";
+import { CursorTrail } from "@/components/ui/cursor-trail";
 import "./globals.css";
 
 const inter = Inter({
@@ -69,6 +70,7 @@ export default function RootLayout({
         className={`${inter.className} min-h-full flex flex-col`}
         suppressHydrationWarning
       >
+        <CursorTrail />
         {children}
       </body>
     </html>
